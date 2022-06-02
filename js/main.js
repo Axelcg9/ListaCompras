@@ -9,7 +9,8 @@ let contador = 0;
     let txtNumber = document.getElementById("Number");
 
     let total = document.getElementById("precioTotal");
-
+    
+    let totalEnProductos=0;
     // let campos = document.getElementsByClassName("campo");
     // campos[0].value = "Leche descremada deslactosada light=Agua";
     // console.log( campos[0].value);
@@ -88,6 +89,8 @@ agregar.addEventListener ("click", (event)=> {
     document.getElementById("contadorProductos").innerHTML=contador;
     let precio =  (Math.floor( (Math.random() * 50)*100))/100;
     let cantidad = parseFloat(txtNumber.value);
+    totalEnProductos += (cantidad<1)?Math.ceil(cantidad):parseInt(cantidad);
+    document.getElementById("productosTotal").innerHTML = totalEnProductos;
     costoTotal += (precio * cantidad);
     total.innerHTML = `$ ${costoTotal.toFixed(2)}`;
     let tmp = `<tr>
