@@ -1,7 +1,7 @@
 let contador = 0;
     let costoTotal = 0;
     let element = document.getElementById("totalPrecio");
-    element.innerHTML="Total en precio";
+    element.innerHTML="totalEnPrecio";
 
     let txtNombre = document.getElementById("Name");
     //txtNombre.value="Leche Semidescremada";
@@ -87,12 +87,15 @@ agregar.addEventListener ("click", (event)=> {
     document.getElementById("alertValidaciones").style.display="none";
     contador++;
     document.getElementById("contadorProductos").innerHTML=contador;
+    localStorage.setItem ("contadorProductos", contador);
     let precio =  (Math.floor( (Math.random() * 50)*100))/100;
     let cantidad = parseFloat(txtNumber.value);
     totalEnProductos += (cantidad<1)?Math.ceil(cantidad):parseInt(cantidad);
     document.getElementById("productosTotal").innerHTML = totalEnProductos;
+    localStorage.setItem ("productosTotal", totalEnProductos);
     costoTotal += (precio * cantidad);
     total.innerHTML = `$ ${costoTotal.toFixed(2)}`;
+    localStorage.setItem ("precioTotal", costoTotal.toFixed(2));
     let tmp = `<tr>
      <th scope="row">${contador}</th>
      <td>${txtNombre.value}</td>
@@ -117,3 +120,18 @@ txtNumber.addEventListener("blur", (event)=> {
     event.target.value = event.target.value.trim();
     }
 );
+
+window.addEventListener("load",function(){
+    if (localStorage.getItem ("contadorProductos")!=null);   {
+        contador = parseInt(localStorage.getItem ("contadorProductos"));
+        document.getElementById("contadorProductos").innerHTML=contador;
+    }//if contadorProductos
+    if(localStorage.getItem ("productosTotal")){
+        totalEnProductos = parseInt(localStorage.getItem("productosTotal"));
+        document.getElementById("productosTotal").innerHTML=totalEnProductos;
+    }//if productosTotal
+    if(localStorage.getItem ("precioTotal"));
+         costoTotal=parseFloat(localStorage.getItem("precioTotal"));
+         total.innerHTML=costoTotal;
+  }//if precioTotal
+)
